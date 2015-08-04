@@ -1,16 +1,13 @@
-require_relative 'board'
-
 class HumanPlayer
-  attr_reader :name, :board
+  attr_reader :board, :color
 
-  def initialize(name, board)
-    @name, @board = name, board
+  def initialize(board, color)
+    @board, @color = board, color
   end
 
   def play_turn
-    puts "Your turn, #{name.capitalize}."
-    board.render
-    
+    puts "Your turn, #{color.to_s.capitalize}."
+
     begin
       puts "Please use the format a1 b2"
       start_pos, end_pos = parse(gets.chomp)
