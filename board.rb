@@ -1,5 +1,6 @@
 require_relative 'sliding_piece'
 require_relative 'stepping_piece'
+require_relative 'pawn'
 
 class Board
   BOARD_SIZE = 8
@@ -31,4 +32,8 @@ class Board
   def piece_at?(pos)
     on_board?(pos) && self[pos]
   end
+
+  def available_space?(pos)
+     on_board?(pos) && !piece_at?(pos)
+   end
 end
