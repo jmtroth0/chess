@@ -111,10 +111,17 @@ class Board
   end
 
   def move(start_pos, end_pos)
-    piece = self[start_pos]
-    piece.move_to(end_pos)
-    self[end_pos] = piece
-    self[start_pos] = nil
+    self[start_pos].move_to(end_pos)
+    move_on_grid(start_pos, end_pos)
+  end
+
+  def move!(start_pos, end_pos)
+    self[start_pos].move_to!(end_pos)
+    move_on_grid(start_pos, end_pos)
+  end
+
+  def move_on_grid(start_pos, end_pos)
+    self[end_pos], self[start_pos] = self[start_pos], nil
   end
 
   def dup
