@@ -1,4 +1,5 @@
 require_relative 'sliding_piece'
+require_relative 'stepping_piece'
 
 class Board
   BOARD_SIZE = 8
