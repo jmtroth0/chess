@@ -40,11 +40,11 @@ class Pawn < Piece
   end
 
   def non_taking_direction
-    color == :black ? [1, 0] : [-1, 0]
+    color == :white ? [1, 0] : [-1, 0]
   end
 
   def taking_directions
-    color == :black ? [[1, 1], [1, -1]] : [[-1, 1], [-1, -1]]
+    color == :white ? [[1, 1], [1, -1]] : [[-1, 1], [-1, -1]]
   end
 
   def to_s
