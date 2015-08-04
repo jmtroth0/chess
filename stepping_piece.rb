@@ -23,7 +23,7 @@ class Knight < SteppingPiece
   end
 
   def to_s
-    inspect
+    " N "
   end
 end
 
@@ -35,6 +35,6 @@ class King < SteppingPiece
   end
 
   def to_s
-    inspect
+    " K "
   end
 end
