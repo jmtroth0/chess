@@ -80,7 +80,8 @@ class Board
   def render
     puts
     rows.reverse.each_with_index do |row, i|
-      puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{row.join("")}"
+      rendered_row = row.map { |tile| tile.nil? ? "   " : tile }.join("")
+      puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{rendered_row}"
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
   end
@@ -90,18 +91,24 @@ class Board
   end
 
   def pieces
-    row.flatten.compact
+    rows.flatten.compact
   end
-
 
   def king_position(color)
     pieces.each do |piece|
-      return piece.pos if piece.is_a?(King) && piece.color == color}
+      return piece.pos if piece.is_a?(King) && piece.color == color
     end
   end
 
   def in_check?(color)
     king_pos = king_position(color)
     pieces.any? { |piece| piece.moves.include?(king_pos) }
+  end
+
+  def move(start_pos, end_pos)
+    piece = self[start_pos]
+    piece.move_to(end_pos)
+    self[end_pos] = piece
+    self[start_pos] = nil
   end
 end

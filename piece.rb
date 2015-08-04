@@ -12,10 +12,21 @@ class Piece
   end
 
   def inspect
-    to_s
+    [pos, color, self.class].inspect
+  end
+
+  def move_to(end_pos)
+    if moves.include?(end_pos)
+      @pos = end_pos
+    else
+      raise InvalidMove.new("Invalid move!")
+    end
   end
 
   def to_s
     self.class::REPRESENTATION.colorize(color)
   end
+end
+
+class InvalidMove < StandardError
 end
