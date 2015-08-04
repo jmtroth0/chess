@@ -1,6 +1,8 @@
 require_relative 'piece'
 
 class SlidingPiece < Piece
+  attr_reader :directions
+  
   def moves
     moves = []
 

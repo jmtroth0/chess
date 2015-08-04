@@ -1,6 +1,8 @@
 require_relative 'piece'
 
 class SteppingPiece < Piece
+  attr_reader :directions
+  
   def moves
     moves = []
 
