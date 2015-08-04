@@ -32,3 +32,20 @@ class Bishop < SlidingPiece
     " B "
   end
 end
+
+class Rook < SlidingPiece
+  attr_reader :directions
+
+  def initialize(pos, board)
+    super(pos, board)
+    @directions = [[1,0], [0,-1], [-1,0], [0,1]]
+  end
+
+  def to_s
+    " B "
+  end
+
+  def inspect
+    " B "
+  end
+end
