@@ -22,36 +22,27 @@ end
 
 class Bishop < SlidingPiece
   DIRECTIONS = [[1,1], [1,-1], [-1,1], [-1,-1]]
+  REPRESENTATION = " B "
 
   def initialize(pos, board, color)
     super(pos, board, color)
-  end
-
-  def representation
-    " B "
   end
 end
 
 class Rook < SlidingPiece
   DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1]]
+  REPRESENTATION = " R "
 
   def initialize(pos, board, color)
     super(pos, board, color)
-  end
-
-  def representation
-    " R "
   end
 end
 
 class Queen < SlidingPiece
   DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
+  REPRESENTATION = " Q "
 
   def initialize(pos, board, color)
     super(pos, board, color)
-  end
-
-  def representation
-    " Q "
   end
 end

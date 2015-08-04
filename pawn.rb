@@ -1,6 +1,7 @@
 require_relative 'piece'
 
 class Pawn < Piece
+  REPRESENTATION = " P "
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -45,9 +46,5 @@ class Pawn < Piece
 
   def taking_directions
     color == :white ? [[1, 1], [1, -1]] : [[-1, 1], [-1, -1]]
-  end
-
-  def representation
-    " P "
   end
 end

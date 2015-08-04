@@ -16,6 +16,6 @@ class Piece
   end
 
   def to_s
-    representation.colorize(color)
+    self.class::REPRESENTATION.colorize(color)
   end
 end
