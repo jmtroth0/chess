@@ -17,7 +17,6 @@ class SlidingPiece < Piece
 end
 
 class Bishop < SlidingPiece
-  attr_reader :directions
 
   def initialize(pos, board)
     super(pos, board)
@@ -34,7 +33,6 @@ class Bishop < SlidingPiece
 end
 
 class Rook < SlidingPiece
-  attr_reader :directions
 
   def initialize(pos, board)
     super(pos, board)
@@ -42,10 +40,10 @@ class Rook < SlidingPiece
   end
 
   def to_s
-    " B "
+    " R "
   end
 
   def inspect
-    " B "
+    " R "
   end
 end
