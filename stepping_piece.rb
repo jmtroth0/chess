@@ -25,10 +25,6 @@ class Knight < SteppingPiece
   def to_s
     inspect
   end
-
-  def inspect
-    " N "
-  end
 end
 
 class King < SteppingPiece
@@ -40,9 +36,5 @@ class King < SteppingPiece
 
   def to_s
     inspect
-  end
-
-  def inspect
-    " K "
   end
 end
