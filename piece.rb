@@ -9,4 +9,8 @@ class Piece
   def self.add_direction(pos, direction)
     [pos[0] + direction[0], pos[1] + direction[1]]
   end
+
+  def inspect
+    to_s
+  end
 end

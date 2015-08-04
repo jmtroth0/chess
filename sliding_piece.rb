@@ -28,10 +28,6 @@ class Bishop < SlidingPiece
   def to_s
     " B "
   end
-
-  def inspect
-    " B "
-  end
 end
 
 class Rook < SlidingPiece
@@ -44,10 +40,6 @@ class Rook < SlidingPiece
   def to_s
     " R "
   end
-
-  def inspect
-    " R "
-  end
 end
 
 class Queen < SlidingPiece
@@ -58,10 +50,6 @@ class Queen < SlidingPiece
   end
 
   def to_s
-    " Q "
-  end
-
-  def inspect
     " Q "
   end
 end
