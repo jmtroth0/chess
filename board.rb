@@ -88,4 +88,20 @@ class Board
   def rows
     @grid
   end
+
+  def pieces
+    row.flatten.compact
+  end
+
+
+  def king_position(color)
+    pieces.each do |piece|
+      return piece.pos if piece.is_a?(King) && piece.color == color}
+    end
+  end
+
+  def in_check?(color)
+    king_pos = king_position(color)
+    pieces.any? { |piece| piece.moves.include?(king_pos) }
+  end
 end
