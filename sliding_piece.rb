@@ -5,11 +5,13 @@ class SlidingPiece < Piece
     moves = []
 
     directions.each do |direction|
-      move = pos
+      move = Piece.add_direction(pos, direction)
       while board.on_board?(move) && board.empty?(move)
-        moves << move unless move == pos
+        moves << move
         move = Piece.add_direction(move, direction)
       end
+
+      moves << move if board.on_board?(move)
     end
 
     moves
