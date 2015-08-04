@@ -1,3 +1,5 @@
+require_relative 'sliding_piece'
+
 class Board
   BOARD_SIZE = 8
 
@@ -9,6 +11,10 @@ class Board
     @grid[pos[0]][pos[1]]
   end
 
+  def []=(pos, value)
+    @grid[pos[0]][pos[1]] = value
+  end
+
   def empty?(pos)
     self[pos].nil?
   end
@@ -16,4 +22,5 @@ class Board
   def on_board?(pos)
     pos.all? { |coord| coord.between?(0, BOARD_SIZE - 1) }
   end
+
 end
