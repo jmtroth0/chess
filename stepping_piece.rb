@@ -21,8 +21,8 @@ class Knight < SteppingPiece
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[-2,1], [-1,2], [1,2], [2,1],
-                   [2,-1], [1,-2], [-1,-2], [-2,-1]]
+    @directions = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
+                   [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
   end
 
   def to_s
