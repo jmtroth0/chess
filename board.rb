@@ -110,6 +110,21 @@ class Board
     pieces.any? { |piece| piece.moves.include?(king_pos) }
   end
 
+  ##### TO BE MOVED TO HUMAN_PLAYER
+
+  def translate(string_input)
+    col_string, row_string = string_input.split("")
+
+    [(row_string.to_i - 1), col_string.downcase.ord - "a".ord]
+  end
+
+  def hum_player(string_input)
+    start_pos, end_pos = string_input.split.map { |pos| translate(pos) }
+    move(start_pos, end_pos)
+  end
+
+  #####
+
   def move(start_pos, end_pos)
     self[start_pos].move_to(end_pos)
     move_on_grid(start_pos, end_pos)
