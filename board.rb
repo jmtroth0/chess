@@ -110,6 +110,12 @@ class Board
     pieces.any? { |piece| piece.moves.include?(king_pos) }
   end
 
+  def check_mate?(color)
+    in_check?(color) && pieces.all? do |piece|
+      piece.color == :black || piece.valid_moves.empty?
+    end
+  end
+
   ##### TO BE MOVED TO HUMAN_PLAYER
 
   def translate(string_input)
@@ -121,6 +127,7 @@ class Board
   def hum_player(string_input)
     start_pos, end_pos = string_input.split.map { |pos| translate(pos) }
     move(start_pos, end_pos)
+    render
   end
 
   #####
