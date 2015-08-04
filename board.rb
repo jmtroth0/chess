@@ -1,6 +1,7 @@
 require_relative 'sliding_piece'
 require_relative 'stepping_piece'
 require_relative 'pawn'
+require 'colorize'
 
 class Board
   BOARD_SIZE = 8
@@ -72,7 +73,18 @@ class Board
   end
 
   def available_space?(pos)
-     on_board?(pos) && !piece_at?(pos)
+    on_board?(pos) && !piece_at?(pos)
   end
-  
+
+  def render
+    puts
+    rows.reverse.each_with_index do |row, i|
+      puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{row.join("")}"
+    end
+    puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
+  end
+
+  def rows
+    @grid
+  end
 end

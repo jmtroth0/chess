@@ -2,7 +2,7 @@ require_relative 'piece'
 
 class SlidingPiece < Piece
   attr_reader :directions
-  
+
   def moves
     moves = []
 
@@ -27,7 +27,7 @@ class Bishop < SlidingPiece
     @directions = [[1,1], [1,-1], [-1,1], [-1,-1]]
   end
 
-  def to_s
+  def representation
     " B "
   end
 end
@@ -39,7 +39,7 @@ class Rook < SlidingPiece
     @directions = [[1,0], [0,-1], [-1,0], [0,1]]
   end
 
-  def to_s
+  def representation
     " R "
   end
 end
@@ -51,7 +51,7 @@ class Queen < SlidingPiece
     @directions = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
   end
 
-  def to_s
+  def representation
     " Q "
   end
 end

@@ -14,4 +14,8 @@ class Piece
   def inspect
     to_s
   end
+
+  def to_s
+    representation.colorize(color)
+  end
 end

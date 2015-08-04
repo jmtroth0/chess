@@ -23,9 +23,10 @@ class Knight < SteppingPiece
     super(pos, board, color)
     @directions = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
                    [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
+
   end
 
-  def to_s
+  def representation
     " N "
   end
 end
@@ -37,7 +38,7 @@ class King < SteppingPiece
     @directions = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
   end
 
-  def to_s
+  def representation
     " K "
   end
 end

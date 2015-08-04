@@ -47,7 +47,7 @@ class Pawn < Piece
     color == :white ? [[1, 1], [1, -1]] : [[-1, 1], [-1, -1]]
   end
 
-  def to_s
+  def representation
     " P "
   end
 end
