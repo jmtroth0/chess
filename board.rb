@@ -16,9 +16,14 @@ class Board
     Rook
   ]
 
+  def self.setup_board
+    board = new
+    board.setup
+    board
+  end
+
   def initialize
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
-    setup
   end
 
   def setup
@@ -110,5 +115,16 @@ class Board
     piece.move_to(end_pos)
     self[end_pos] = piece
     self[start_pos] = nil
+  end
+
+  def dup
+    new_board = Board.new
+
+    pieces.each do |piece|
+      new_piece = piece.class.new(piece.pos.dup, new_board, piece.color)
+      new_board[piece.pos] = new_piece
+    end
+
+    new_board
   end
 end
