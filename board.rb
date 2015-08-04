@@ -5,16 +5,16 @@ require 'colorize'
 
 class Board
   BOARD_SIZE = 8
-  INITIAL_POSITIONS = {
-    [0, 0] => Rook,
-    [0, 1] => Knight,
-    [0, 2] => Bishop,
-    [0, 3] => Queen,
-    [0, 4] => King,
-    [0, 5] => Bishop,
-    [0, 6] => Knight,
-    [0, 7] => Rook,
-  }
+  INITIAL_POSITIONS = [
+    Rook,
+    Knight,
+    Bishop,
+    Queen,
+    King,
+    Bishop,
+    Knight,
+    Rook
+  ]
 
   def initialize
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
@@ -39,10 +39,11 @@ class Board
   end
 
   def setup_non_pawns
-    INITIAL_POSITIONS.each do |pos, type|
-      self[pos] = type.new(pos, self, :white)
-      pos_for_black = [pos[0] + BOARD_SIZE - 1, pos[1]]
-      self[pos_for_black] = type.new(pos_for_black, self, :black)
+    INITIAL_POSITIONS.each_with_index do |type, col|
+      white_pos = [0,col]
+      self[white_pos] = type.new(white_pos, self, :white)
+      black_pos = [BOARD_SIZE - 1, col]
+      self[black_pos] = type.new(black_pos, self, :black)
     end
 
     nil
@@ -69,11 +70,11 @@ class Board
   end
 
   def piece_at?(pos)
-    on_board?(pos) && self[pos]
+    on_board?(pos) && !empty?(pos)
   end
 
   def available_space?(pos)
-    on_board?(pos) && !piece_at?(pos)
+    on_board?(pos) && empty?(pos)
   end
 
   def render

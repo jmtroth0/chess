@@ -6,7 +6,7 @@ class SlidingPiece < Piece
   def moves
     moves = []
 
-    directions.each do |direction|
+    self.class::DIRECTIONS.each do |direction|
       move = Piece.add_direction(pos, direction)
       while board.on_board?(move) && board.empty?(move)
         moves << move
@@ -21,10 +21,10 @@ class SlidingPiece < Piece
 end
 
 class Bishop < SlidingPiece
+  DIRECTIONS = [[1,1], [1,-1], [-1,1], [-1,-1]]
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[1,1], [1,-1], [-1,1], [-1,-1]]
   end
 
   def representation
@@ -33,10 +33,10 @@ class Bishop < SlidingPiece
 end
 
 class Rook < SlidingPiece
+  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1]]
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[1,0], [0,-1], [-1,0], [0,1]]
   end
 
   def representation
@@ -45,10 +45,10 @@ class Rook < SlidingPiece
 end
 
 class Queen < SlidingPiece
+  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
   end
 
   def representation

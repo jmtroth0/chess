@@ -6,7 +6,7 @@ class SteppingPiece < Piece
   def moves
     moves = []
 
-    directions.each do |direction|
+    self.class::DIRECTIONS.each do |direction|
       move = Piece.add_direction(pos, direction)
       if board.on_board?(move)
         moves << move if !board.piece_at?(move) || board.color_at(move) != color
@@ -18,11 +18,12 @@ class SteppingPiece < Piece
 end
 
 class Knight < SteppingPiece
+  DIRECTIONS = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
+                 [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
-                   [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
+
 
   end
 
@@ -32,10 +33,11 @@ class Knight < SteppingPiece
 end
 
 class King < SteppingPiece
+  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
 
   def initialize(pos, board, color)
     super(pos, board, color)
-    @directions = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
+
   end
 
   def representation
