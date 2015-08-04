@@ -47,3 +47,19 @@ class Rook < SlidingPiece
     " R "
   end
 end
+
+class Queen < SlidingPiece
+
+  def initialize(pos, board)
+    super(pos, board)
+    @directions = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
+  end
+
+  def to_s
+    " Q "
+  end
+
+  def inspect
+    " Q "
+  end
+end
