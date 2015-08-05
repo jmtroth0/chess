@@ -26,6 +26,17 @@ class Board
     @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
   end
 
+  def ==(other_board)
+    (0...BOARD_SIZE).each do |row_index|
+      (0...BOARD_SIZE).each do |col_index|
+        pos = [row_index, col_index]
+        return false unless self[pos].class == other_board[pos].class
+      end
+    end
+
+    true
+  end
+
   def setup
     setup_pawns
     setup_non_pawns
