@@ -76,6 +76,10 @@ class Board
     pieces.any? { |piece| piece.moves.include?(king_pos) }
   end
 
+  def draw?(current_color)
+    pieces.length == 2 || possible_moves(current_color).length == 0
+  end
+
   def on_board?(pos)
     pos.all? { |coord| coord.between?(0, BOARD_SIZE - 1) }
   end
@@ -90,6 +94,12 @@ class Board
 
   def color_at(pos)
     self[pos].color
+  end
+
+  def difference_in_color_from(color, other_board)
+    num_then = other_board.pieces_of_color(color).length
+    num_now = self.pieces_of_color(color).length
+    num_now - num_then
   end
 
   def dup
@@ -119,6 +129,10 @@ class Board
 
   def [](pos)
     @grid[pos[0]][pos[1]]
+  end
+
+  def pieces_of_color(color)
+    pieces.select { |piece| piece.color == color }
   end
 
   private
@@ -153,9 +167,5 @@ class Board
     end
 
     nil
-  end
-
-  def pieces_of_color(color)
-    pieces.select { |piece| piece.color == color }
   end
 end

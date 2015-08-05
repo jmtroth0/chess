@@ -8,8 +8,8 @@ class Game
   attr_accessor :turns_played
   def initialize
     @board = Board.setup_new_board
-    @current_player = ComputerPlayer.new(board, :white)
-    @other_player = ComputerPlayer.new(board, :black)
+    @current_player = SmartComputerPlayer.new(board, :white, 2)
+    @other_player = StupidComputerPlayer.new(board, :black)
     @turns_played = 0
   end
 
@@ -43,8 +43,7 @@ class Game
   end
 
   def draw?
-    board.pieces.length == 2 ||
-      board.possible_moves(current_player.color).length == 0
+    board.draw?(current_player.color)
   end
 
   def switch_players
