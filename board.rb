@@ -16,7 +16,7 @@ class Board
     Rook
   ]
 
-  def self.setup_board
+  def self.setup_new_board
     board = new
     board.setup
     board
@@ -32,54 +32,52 @@ class Board
     nil
   end
 
-  def setup_pawns
-    (0...BOARD_SIZE).each do |col|
-      white_pos = [1, col]
-      self[white_pos] = Pawn.new(white_pos, self, :white)
-      black_pos = [BOARD_SIZE - 2, col]
-      self[black_pos] = Pawn.new(black_pos, self, :black)
+  def move(start_pos, end_pos)
+    self[start_pos].move_to(end_pos)
+    move_on_grid(start_pos, end_pos)
+  end
+
+  def move!(start_pos, end_pos)
+    self[start_pos].move_to!(end_pos)
+    move_on_grid(start_pos, end_pos)
+  end
+
+  def check_mate?(color)
+    in_check?(color) && pieces.all? do |piece|
+      piece.color == :black || piece.valid_moves.empty?
     end
-
-    nil
   end
 
-  def setup_non_pawns
-    INITIAL_POSITIONS.each_with_index do |type, col|
-      white_pos = [0,col]
-      self[white_pos] = type.new(white_pos, self, :white)
-      black_pos = [BOARD_SIZE - 1, col]
-      self[black_pos] = type.new(black_pos, self, :black)
-    end
-
-    nil
-  end
-
-  def [](pos)
-    @grid[pos[0]][pos[1]]
-  end
-
-  def []=(pos, value)
-    @grid[pos[0]][pos[1]] = value
-  end
-
-  def empty?(pos)
-    self[pos].nil?
+  def in_check?(color)
+    king_pos = king_position(color)
+    pieces.any? { |piece| piece.moves.include?(king_pos) }
   end
 
   def on_board?(pos)
     pos.all? { |coord| coord.between?(0, BOARD_SIZE - 1) }
   end
 
+  def empty_square?(pos)
+    on_board?(pos) && self[pos].nil?
+  end
+
+  def piece_at?(pos)
+    on_board?(pos) && !self[pos].nil?
+  end
+
   def color_at(pos)
     self[pos].color
   end
 
-  def piece_at?(pos)
-    on_board?(pos) && !empty?(pos)
-  end
+  def dup
+    new_board = Board.new
 
-  def available_space?(pos)
-    on_board?(pos) && empty?(pos)
+    pieces.each do |piece|
+      new_piece = piece.class.new(piece.pos.dup, new_board, piece.color)
+      new_board[piece.pos] = new_piece
+    end
+
+    new_board
   end
 
   def render
@@ -90,6 +88,18 @@ class Board
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
   end
+
+  protected
+
+  def [](pos)
+    @grid[pos[0]][pos[1]]
+  end
+
+  def []=(pos, value)
+    @grid[pos[0]][pos[1]] = value
+  end
+
+  private
 
   def rows
     @grid
@@ -105,39 +115,25 @@ class Board
     end
   end
 
-  def in_check?(color)
-    king_pos = king_position(color)
-    pieces.any? { |piece| piece.moves.include?(king_pos) }
-  end
-
-  def check_mate?(color)
-    in_check?(color) && pieces.all? do |piece|
-      piece.color == :black || piece.valid_moves.empty?
-    end
-  end
-
-  def move(start_pos, end_pos)
-    self[start_pos].move_to(end_pos)
-    move_on_grid(start_pos, end_pos)
-  end
-
-  def move!(start_pos, end_pos)
-    self[start_pos].move_to!(end_pos)
-    move_on_grid(start_pos, end_pos)
-  end
-
   def move_on_grid(start_pos, end_pos)
     self[end_pos], self[start_pos] = self[start_pos], nil
   end
 
-  def dup
-    new_board = Board.new
-
-    pieces.each do |piece|
-      new_piece = piece.class.new(piece.pos.dup, new_board, piece.color)
-      new_board[piece.pos] = new_piece
+  def setup_pawns
+    (0...BOARD_SIZE).each do |col|
+      self[[1, col]] = Pawn.new([1, col], self, :white)
+      self[[BOARD_SIZE - 2, col]] = Pawn.new([BOARD_SIZE - 2, col], self, :black)
     end
 
-    new_board
+    nil
+  end
+
+  def setup_non_pawns
+    INITIAL_POSITIONS.each_with_index do |type, col|
+      self[[0, col]] = type.new([0, col], self, :white)
+      self[[BOARD_SIZE - 1, col]] = type.new([BOARD_SIZE - 1, col], self, :black)
+    end
+
+    nil
   end
 end

@@ -5,7 +5,7 @@ class Game
   attr_reader :board, :current_player, :other_player
 
   def initialize
-    @board = Board.setup_board
+    @board = Board.setup_new_board
     @current_player = HumanPlayer.new(board, :white)
     @other_player = HumanPlayer.new(board, :black)
   end
