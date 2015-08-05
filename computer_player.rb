@@ -6,13 +6,15 @@ class SmartComputerPlayer
   end
 
   def play_turn
+    start = Time.now
+    puts "Computer is thinking..."
     board.move(*find_best_move)
+    puts "Computer thought for #{Time.now - start} seconds."
   end
 
   def tree(max_turns)
     game_states = []
 
-    start = Time.now
     root = GameStateNode.new(board, color, max_turns)
     current_node = root
 
@@ -21,21 +23,21 @@ class SmartComputerPlayer
       current_node.children.each { |child| game_states << child }
       current_node = game_states.shift
     end
-    puts "hello? #{Time.now - start}"
+
     root
   end
 
   def find_best_move
     tree = tree(cleverness)
-
     points_for_moves = Hash.new { |h, k| h[k] = [] }
 
     tree.children.each do |child|
       child_points = child.best_points
       points_for_moves[child_points] << child.prev_move
     end
-    p points_for_moves
-    points_for_moves[points_for_moves.keys.sort.first].sample
+
+    best_points = points_for_moves.keys.sort.first
+    points_for_moves[best_points].sample
   end
 end
 
@@ -47,7 +49,6 @@ class StupidComputerPlayer
   end
 
   def play_turn
-    #sleep(0.5)
     moves = board.possible_moves(color)
     taking_moves = moves.select { |move| move_takes?(move) }
     board.move(*(taking_moves.empty? ? moves.sample : taking_moves.sample))
@@ -60,22 +61,22 @@ class StupidComputerPlayer
 end
 
 class GameStateNode
-  attr_reader  :board, :turns_left, :player_color, :children, :other_color, :prev_move, :parent
-  attr_accessor :best_move
+  attr_reader  :board, :turns_left, :player_color, :children,
+               :other_color, :prev_move, :parent
 
   def initialize(board, player_color, turns_left, parent = nil, prev_move = nil)
-    @board, @player_color, @turns_left = board, player_color, turns_left
-    @prev_move = prev_move
+    @board, @turns_left, @prev_move = board, turns_left, prev_move
+    @player_color = player_color
     @other_color = player_color == :black ? :white : :black
-    @parent = parent
-    @children = []
+    @parent, @children = parent, []
   end
 
   def create_children
     board.possible_moves(player_color).each do |move|
       new_board = board.dup
       new_board.move(*move)
-      children << GameStateNode.new(new_board, other_color, turns_left - 1, self, move)
+      children << GameStateNode.new(new_board, other_color,
+                                    turns_left - 1, self, move)
     end
   end
 
