@@ -14,6 +14,9 @@ class Game
   def play
     until winner
       board.render
+      if board.in_check?(current_player.color)
+        puts "#{current_player.color.to_s.capitalize} is in check!"
+      end
       current_player.play_turn
       switch_players
     end

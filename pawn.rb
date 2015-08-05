@@ -1,7 +1,7 @@
 require_relative 'piece'
 
 class Pawn < Piece
-  REPRESENTATION = "P"
+  REPRESENTATION = {:white => "\u2659", :black => "\u265F"}
 
   def initialize(pos, board, color)
     super(pos, board, color)

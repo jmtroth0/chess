@@ -18,7 +18,7 @@ end
 class Knight < SteppingPiece
   DELTAS = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
                  [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
-  REPRESENTATION = "N"
+  REPRESENTATION = {:white => "\u2658", :black => "\u265E"}
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -27,7 +27,7 @@ end
 
 class King < SteppingPiece
   DELTAS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = "K"
+  REPRESENTATION = {:white => "\u2654", :black => "\u265A"}
 
   def initialize(pos, board, color)
     super(pos, board, color)

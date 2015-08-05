@@ -5,6 +5,7 @@ class Piece
     @pos = pos
     @board = board
     @color = color
+    board[pos] = self
   end
 
   def move_to(end_pos)
@@ -21,18 +22,16 @@ class Piece
     @pos = end_pos
   end
 
+  def dup(new_board)
+    self.class.new(pos.dup, new_board, color)
+  end
+
   def to_s
-    "[#{self.class::REPRESENTATION.colorize(color)}]"
+    "[#{self.class::REPRESENTATION[color]}]"
   end
 
   def inspect
     [pos, color, self.class].inspect
-  end
-
-  private
-
-  def self.add_delta(pos, delta)
-    [pos[0] + delta[0], pos[1] + delta[1]]
   end
 
   def valid_moves
@@ -41,5 +40,11 @@ class Piece
       dupped_board.move!(pos, move)
       !dupped_board.in_check?(color)
     end
+  end
+
+  private
+
+  def self.add_delta(pos, delta)
+    [pos[0] + delta[0], pos[1] + delta[1]]
   end
 end

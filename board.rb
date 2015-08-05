@@ -71,12 +71,7 @@ class Board
 
   def dup
     new_board = Board.new
-
-    pieces.each do |piece|
-      new_piece = piece.class.new(piece.pos.dup, new_board, piece.color)
-      new_board[piece.pos] = new_piece
-    end
-
+    pieces.each { |piece| piece.dup(new_board) }
     new_board
   end
 
@@ -88,15 +83,15 @@ class Board
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
   end
+  
+  def []=(pos, value)
+    @grid[pos[0]][pos[1]] = value
+  end
 
   protected
 
   def [](pos)
     @grid[pos[0]][pos[1]]
-  end
-
-  def []=(pos, value)
-    @grid[pos[0]][pos[1]] = value
   end
 
   private
@@ -121,8 +116,8 @@ class Board
 
   def setup_pawns
     (0...BOARD_SIZE).each do |col|
-      self[[1, col]] = Pawn.new([1, col], self, :white)
-      self[[BOARD_SIZE - 2, col]] = Pawn.new([BOARD_SIZE - 2, col], self, :black)
+      Pawn.new([1, col], self, :white)
+      Pawn.new([BOARD_SIZE - 2, col], self, :black)
     end
 
     nil
@@ -130,8 +125,8 @@ class Board
 
   def setup_non_pawns
     INITIAL_POSITIONS.each_with_index do |type, col|
-      self[[0, col]] = type.new([0, col], self, :white)
-      self[[BOARD_SIZE - 1, col]] = type.new([BOARD_SIZE - 1, col], self, :black)
+      type.new([0, col], self, :white)
+      type.new([BOARD_SIZE - 1, col], self, :black)
     end
 
     nil

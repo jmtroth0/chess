@@ -20,7 +20,7 @@ end
 
 class Bishop < SlidingPiece
   DELTAS = [[1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = "B"
+  REPRESENTATION = {:white => "\u2657", :black => "\u265D"}
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -29,7 +29,7 @@ end
 
 class Rook < SlidingPiece
   DELTAS = [[1,0], [0,-1], [-1,0], [0,1]]
-  REPRESENTATION = "R"
+  REPRESENTATION = {:white => "\u2656", :black => "\u265C"}
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -38,7 +38,7 @@ end
 
 class Queen < SlidingPiece
   DELTAS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = "Q"
+  REPRESENTATION = {:white => "\u2655", :black => "\u265B"}
 
   def initialize(pos, board, color)
     super(pos, board, color)
