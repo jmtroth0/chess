@@ -1,8 +1,6 @@
 require_relative 'piece'
 
 class SteppingPiece < Piece
-  attr_reader :directions
-
   def moves
     moves = []
 
@@ -20,7 +18,7 @@ end
 class Knight < SteppingPiece
   DIRECTIONS = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
                  [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
-  REPRESENTATION = " N "
+  REPRESENTATION = "N"
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -29,7 +27,7 @@ end
 
 class King < SteppingPiece
   DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = " K "
+  REPRESENTATION = "K"
 
   def initialize(pos, board, color)
     super(pos, board, color)
