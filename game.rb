@@ -10,10 +10,6 @@ class Game
     @other_player = HumanPlayer.new(board, :black)
   end
 
-  def switch_players
-    @current_player, @other_player = other_player, current_player
-  end
-
   def play
     until winner
       board.render
@@ -24,6 +20,8 @@ class Game
     puts "#{winner.to_s.capitalize} wins!"
   end
 
+  private
+
   def winner
     if board.check_mate?(:black)
       :white
@@ -32,6 +30,10 @@ class Game
     else
       nil
     end
+  end
+
+  def switch_players
+    @current_player, @other_player = other_player, current_player
   end
 end
 
