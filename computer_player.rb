@@ -80,7 +80,9 @@ class GameStateNode
   end
 
   def best_points
-    loss = board.difference_in_color_from(player_color, parent.board) * ((turns_left + 1)**2)
+    multiplier = (turns_left + 1)**2
+    loss = board.point_change_for_color(player_color, parent.board) * multiplier
+
     return loss if turns_left == 0
     return -100 if board.check_mate?(player_color)
     return 10 if board.draw?(player_color)

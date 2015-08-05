@@ -96,10 +96,10 @@ class Board
     self[pos].color
   end
 
-  def difference_in_color_from(color, other_board)
-    num_then = other_board.pieces_of_color(color).length
-    num_now = self.pieces_of_color(color).length
-    num_now - num_then
+  def point_change_for_color(color, other_board)
+    num_other = other_board.points_for_color(color)
+    num_this = self.points_for_color(color)
+    num_this - num_other
   end
 
   def dup
@@ -133,6 +133,10 @@ class Board
 
   def pieces_of_color(color)
     pieces.select { |piece| piece.color == color }
+  end
+
+  def points_for_color(color)
+    pieces_of_color(color).inject(0) { |acc, piece| acc + piece.class::POINTS }
   end
 
   private
