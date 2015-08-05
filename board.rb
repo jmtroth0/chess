@@ -81,9 +81,9 @@ class Board
   end
 
   def render
-    puts
+    system("clear")
     rows.reverse.each_with_index do |row, i|
-      rendered_row = row.map { |tile| tile.nil? ? "   " : tile }.join("")
+      rendered_row = row.map { |tile| tile.nil? ? "[ ]" : tile }.join("")
       puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{rendered_row}"
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
