@@ -22,7 +22,7 @@ class Piece
   end
 
   def to_s
-    self.class::REPRESENTATION.colorize(color)
+    " #{self.class::REPRESENTATION.colorize(color)} "
   end
 
   def inspect

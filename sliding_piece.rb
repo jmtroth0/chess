@@ -1,14 +1,12 @@
 require_relative 'piece'
 
 class SlidingPiece < Piece
-  attr_reader :directions
-
   def moves
     moves = []
 
     self.class::DIRECTIONS.each do |direction|
       move = Piece.add_direction(pos, direction)
-      while board.on_board?(move) && board.empty?(move)
+      while board.empty_square?(move)
         moves << move
         move = Piece.add_direction(move, direction)
       end
@@ -22,7 +20,7 @@ end
 
 class Bishop < SlidingPiece
   DIRECTIONS = [[1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = " B "
+  REPRESENTATION = "B"
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -31,7 +29,7 @@ end
 
 class Rook < SlidingPiece
   DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1]]
-  REPRESENTATION = " R "
+  REPRESENTATION = "R"
 
   def initialize(pos, board, color)
     super(pos, board, color)
@@ -40,7 +38,7 @@ end
 
 class Queen < SlidingPiece
   DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
-  REPRESENTATION = " Q "
+  REPRESENTATION = "Q"
 
   def initialize(pos, board, color)
     super(pos, board, color)
