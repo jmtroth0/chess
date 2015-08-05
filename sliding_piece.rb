@@ -4,11 +4,11 @@ class SlidingPiece < Piece
   def moves
     moves = []
 
-    self.class::DIRECTIONS.each do |direction|
-      move = Piece.add_direction(pos, direction)
+    self.class::DELTAS.each do |delta|
+      move = Piece.add_delta(pos, delta)
       while board.empty_square?(move)
         moves << move
-        move = Piece.add_direction(move, direction)
+        move = Piece.add_delta(move, delta)
       end
 
       moves << move if board.piece_at?(move) && board.color_at(move) != color
@@ -19,7 +19,7 @@ class SlidingPiece < Piece
 end
 
 class Bishop < SlidingPiece
-  DIRECTIONS = [[1,1], [1,-1], [-1,1], [-1,-1]]
+  DELTAS = [[1,1], [1,-1], [-1,1], [-1,-1]]
   REPRESENTATION = "B"
 
   def initialize(pos, board, color)
@@ -28,7 +28,7 @@ class Bishop < SlidingPiece
 end
 
 class Rook < SlidingPiece
-  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1]]
+  DELTAS = [[1,0], [0,-1], [-1,0], [0,1]]
   REPRESENTATION = "R"
 
   def initialize(pos, board, color)
@@ -37,7 +37,7 @@ class Rook < SlidingPiece
 end
 
 class Queen < SlidingPiece
-  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
+  DELTAS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
   REPRESENTATION = "Q"
 
   def initialize(pos, board, color)

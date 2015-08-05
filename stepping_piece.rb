@@ -4,8 +4,8 @@ class SteppingPiece < Piece
   def moves
     moves = []
 
-    self.class::DIRECTIONS.each do |direction|
-      move = Piece.add_direction(pos, direction)
+    self.class::DELTAS.each do |delta|
+      move = Piece.add_delta(pos, delta)
       if board.on_board?(move)
         moves << move if !board.piece_at?(move) || board.color_at(move) != color
       end
@@ -16,7 +16,7 @@ class SteppingPiece < Piece
 end
 
 class Knight < SteppingPiece
-  DIRECTIONS = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
+  DELTAS = [[-2,  1], [-1,  2], [ 1,  2], [ 2,  1],
                  [ 2, -1], [ 1, -2], [-1, -2], [-2, -1]]
   REPRESENTATION = "N"
 
@@ -26,7 +26,7 @@ class Knight < SteppingPiece
 end
 
 class King < SteppingPiece
-  DIRECTIONS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
+  DELTAS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
   REPRESENTATION = "K"
 
   def initialize(pos, board, color)

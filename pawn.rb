@@ -1,50 +1,48 @@
 require_relative 'piece'
 
 class Pawn < Piece
-  REPRESENTATION = " P "
+  REPRESENTATION = "P"
 
   def initialize(pos, board, color)
     super(pos, board, color)
     @has_moved = false
   end
 
-  def has_moved?
-    @has_moved
-  end
-
   def moves
     non_taking_moves + taking_moves
+  end
+
+  private
+
+  def taking_moves
+    deltas_for_taking.map do |delta|
+      Piece.add_delta(pos, delta)
+    end.select { |move| board.piece_at?(move) && board.color_at(move) != color}
   end
 
   def non_taking_moves
     moves = []
 
-    move = Piece.add_direction(pos, non_taking_direction)
-    if board.available_space?(move)
+    move = Piece.add_delta(pos, delta_for_moving)
+    if board.empty_square?(move)
       moves << move
 
-      unless has_moved?
-        second_move = Piece.add_direction(move, non_taking_direction)
-        if board.available_space?(second_move)
-          moves << second_move
-        end
-      end
-
+      second_move = Piece.add_delta(move, delta_for_moving)
+      moves << second_move if !has_moved? && board.empty_square?(second_move)
     end
+
     moves
   end
 
-  def taking_moves
-    taking_directions.map do |direction|
-      Piece.add_direction(pos, direction)
-    end.select { |move| board.piece_at?(move) && board.color_at(move) != color}
+  def has_moved?
+    @has_moved
   end
 
-  def non_taking_direction
+  def delta_for_moving
     color == :white ? [1, 0] : [-1, 0]
   end
 
-  def taking_directions
+  def deltas_for_taking
     color == :white ? [[1, 1], [1, -1]] : [[-1, 1], [-1, -1]]
   end
 end

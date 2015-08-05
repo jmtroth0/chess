@@ -31,8 +31,8 @@ class Piece
 
   private
 
-  def self.add_direction(pos, direction)
-    [pos[0] + direction[0], pos[1] + direction[1]]
+  def self.add_delta(pos, delta)
+    [pos[0] + delta[0], pos[1] + delta[1]]
   end
 
   def valid_moves
