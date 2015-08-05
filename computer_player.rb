@@ -12,6 +12,8 @@ class SmartComputerPlayer
     puts "Computer thought for #{Time.now - start} seconds."
   end
 
+  private
+
   def tree(max_turns)
     game_states = []
 
@@ -53,6 +55,8 @@ class StupidComputerPlayer
     taking_moves = moves.select { |move| move_takes?(move) }
     board.move(*(taking_moves.empty? ? moves.sample : taking_moves.sample))
   end
+
+  private
 
   def move_takes?(move)
     start_pos, end_pos = move
