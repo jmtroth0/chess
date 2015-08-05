@@ -1,19 +1,24 @@
 require_relative 'board'
 require_relative 'human_player'
+require_relative 'computer_player'
 require_relative 'chess_error'
 
 class Game
   attr_reader :board, :current_player, :other_player
-
+  attr_accessor :turns_played
   def initialize
     @board = Board.setup_new_board
-    @current_player = HumanPlayer.new(board, :white)
-    @other_player = HumanPlayer.new(board, :black)
+    @current_player = ComputerPlayer.new(board, :white)
+    @other_player = ComputerPlayer.new(board, :black)
+    @turns_played = 0
   end
 
   def play
-    until winner
+    until winner || draw?
       board.render
+      puts "Turns played: #{turns_played}"
+      puts "Your turn, #{current_player.color.to_s.capitalize}."
+      self.turns_played += 1
       if board.in_check?(current_player.color)
         puts "#{current_player.color.to_s.capitalize} is in check!"
       end
@@ -21,7 +26,8 @@ class Game
       switch_players
     end
 
-    puts "#{winner.to_s.capitalize} wins!"
+    board.render
+    puts winner ? "#{winner.to_s.capitalize} wins!" : "Draw!"
   end
 
   private
@@ -34,6 +40,11 @@ class Game
     else
       nil
     end
+  end
+
+  def draw?
+    board.pieces.length == 2 ||
+      board.possible_moves(current_player.color).length == 0
   end
 
   def switch_players

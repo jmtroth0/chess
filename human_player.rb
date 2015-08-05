@@ -6,7 +6,7 @@ class HumanPlayer
   end
 
   def play_turn
-    puts "Your turn, #{color.to_s.capitalize}. \nPlease use the format a1 b2."
+    puts "\nPlease use the format a1 b2."
 
     begin
       start_pos, end_pos = parse(gets.chomp)

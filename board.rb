@@ -42,6 +42,18 @@ class Board
     move_on_grid(start_pos, end_pos)
   end
 
+  def possible_moves(color)
+    moves = []
+
+    pieces_of_color(color).each do |piece|
+      piece.valid_moves.each do |end_pos|
+        moves << [piece.pos, end_pos]
+      end
+    end
+
+    moves
+  end
+
   def check_mate?(color)
     in_check?(color) && pieces.all? do |piece|
       piece.color == :black || piece.valid_moves.empty?
@@ -76,14 +88,18 @@ class Board
   end
 
   def render
-    system("clear")
+    puts "\n"
     rows.reverse.each_with_index do |row, i|
       rendered_row = row.map { |tile| tile.nil? ? "[ ]" : tile }.join("")
       puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{rendered_row}"
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)
   end
-  
+
+  def pieces
+    rows.flatten.compact
+  end
+
   def []=(pos, value)
     @grid[pos[0]][pos[1]] = value
   end
@@ -98,10 +114,6 @@ class Board
 
   def rows
     @grid
-  end
-
-  def pieces
-    rows.flatten.compact
   end
 
   def king_position(color)
@@ -130,5 +142,9 @@ class Board
     end
 
     nil
+  end
+
+  def pieces_of_color(color)
+    pieces.select { |piece| piece.color == color }
   end
 end
