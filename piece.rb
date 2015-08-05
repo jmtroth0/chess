@@ -11,9 +11,9 @@ class Piece
     if valid_moves.include?(end_pos)
       @pos = end_pos
     elsif moves.include?(end_pos)
-      raise InvalidMove.new("Invalid move! That move would take you into check.")
+      raise ChessError.new("Invalid move! That move would take you into check.")
     else
-      raise InvalidMove.new("Invalid move!")
+      raise ChessError.new("Invalid move!")
     end
   end
 
@@ -42,7 +42,4 @@ class Piece
       !dupped_board.in_check?(color)
     end
   end
-end
-
-class InvalidMove < StandardError
 end

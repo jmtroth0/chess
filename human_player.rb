@@ -11,7 +11,7 @@ class HumanPlayer
     begin
       start_pos, end_pos = parse(gets.chomp)
       move(start_pos, end_pos)
-    rescue InvalidMove, BadInput, NoPiece, WrongColor => e
+    rescue ChessError => e
       puts e.message
       puts "Try again"
       retry
@@ -22,9 +22,9 @@ class HumanPlayer
 
   def move(start_pos, end_pos)
     if !board.piece_at?(start_pos)
-      raise NoPiece.new("There's no piece there!")
+      raise ChessError.new("There's no piece there!")
     elsif board.color_at(start_pos) != color
-      raise WrongColor.new("Wrong color! You can't move your opponent's piece.")
+      raise ChessError.new("Wrong color! You can't move your opponent's piece.")
     end
     board.move(start_pos, end_pos)
   end
@@ -38,18 +38,9 @@ class HumanPlayer
     pos = [(row_string.to_i - 1), col_string.downcase.ord - "a".ord]
 
     unless pos.all? { |coord| coord.between?(0, board.class::BOARD_SIZE - 1) }
-      raise BadInput.new "Invalid input!"
+      raise ChessError.new "Invalid input!"
     end
 
     pos
   end
-end
-
-class BadInput < StandardError
-end
-
-class NoPiece < StandardError
-end
-
-class WrongColor < StandardError
 end

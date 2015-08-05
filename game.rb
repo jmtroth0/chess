@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'human_player'
+require_relative 'chess_error'
 
 class Game
   attr_reader :board, :current_player, :other_player

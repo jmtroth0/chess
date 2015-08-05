@@ -1,0 +1,2 @@
+class ChessError < StandardError
+end
