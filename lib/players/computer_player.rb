@@ -70,7 +70,7 @@ class GameStateNode
 
     return loss if turns_left == 0
     return -1000 if board.check_mate?(player_color)
-    return -30 if board.in_check?(player_color)
+    return -15 if board.in_check?(player_color)
     return 10 if board.draw?(player_color)
 
     best_points_from_child = nil
