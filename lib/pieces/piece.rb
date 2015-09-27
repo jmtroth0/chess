@@ -1,3 +1,4 @@
+
 class Piece
   attr_reader :pos, :board, :color
 

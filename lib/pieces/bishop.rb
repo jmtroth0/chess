@@ -1,4 +1,3 @@
-require_relative 'sliding_piece'
 
 class Bishop < SlidingPiece
   DELTAS = [[1,1], [1,-1], [-1,1], [-1,-1]]

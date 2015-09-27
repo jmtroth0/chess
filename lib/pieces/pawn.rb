@@ -1,4 +1,3 @@
-require_relative 'piece'
 
 class Pawn < Piece
   REPRESENTATION = {:white => "\u2659", :black => "\u265F"}

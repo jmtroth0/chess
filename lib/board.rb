@@ -1,5 +1,3 @@
-require './pieces/piece'
-require 'colorize'
 
 class Board
   BOARD_SIZE = 8

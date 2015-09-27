@@ -1,6 +1,4 @@
-require_relative 'board'
-require_relative './players/player_requirements'
-require_relative 'chess_error'
+require './lib/requirements.rb'
 
 class Game
   attr_reader :board, :current_player, :other_player
@@ -51,5 +49,5 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new.play
+  Game.new(2).play
 end

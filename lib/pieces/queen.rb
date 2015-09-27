@@ -1,4 +1,3 @@
-require_relative 'sliding_piece'
 
 class Queen < SlidingPiece
   DELTAS = [[1,0], [0,-1], [-1,0], [0,1], [1,1], [1,-1], [-1,1], [-1,-1]]
