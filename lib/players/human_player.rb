@@ -7,9 +7,10 @@ class HumanPlayer
 
   def play_turn
     puts "\nPlease use the format a1 b2."
-
     begin
+      start = Time.now
       start_pos, end_pos = parse(gets.chomp)
+      puts "Human thought for #{Time.now - start} seconds."
       move(start_pos, end_pos)
     rescue ChessError => e
       puts e.message

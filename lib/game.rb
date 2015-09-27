@@ -1,12 +1,17 @@
 require './lib/requirements.rb'
+require 'byebug'
 
 class Game
   attr_reader :board, :current_player, :other_player
   attr_accessor :turns_played
-  def initialize(cleverness = 2)
+  def initialize(cleverness = 2, human_player = false)
     @board = Board.setup_new_board
-    @current_player = SmartComputerPlayer.new(board, :white, cleverness)
-    @other_player = StupidComputerPlayer.new(board, :black)
+    if human_player
+      @current_player = HumanPlayer.new(board, :white)
+    else
+      @current_player = StupidComputerPlayer.new(board, :white)
+    end
+    @other_player = SmartComputerPlayer.new(board, :black, cleverness)
     @turns_played = 0
   end
 
@@ -49,5 +54,11 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new(2).play
+  puts 'Would you like to play against the computer? (y/n)'
+  human_player = gets.chomp == 'y'
+  puts 'How clever would you like the computer to be? (natural number)'
+  puts 'Be warned, any more than 3 requires fairly significant processing power'
+  puts 'to respond in a reasonable amount of time'
+  cleverness = gets.chomp.to_i
+  Game.new(cleverness, human_player).play
 end
