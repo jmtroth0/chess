@@ -43,26 +43,6 @@ class SmartComputerPlayer
   end
 end
 
-class StupidComputerPlayer
-  attr_reader :board, :color
-
-  def initialize(board, color)
-    @board, @color = board, color
-  end
-
-  def play_turn
-    moves = board.possible_moves(color)
-    taking_moves = moves.select { |move| move_takes?(move) }
-    board.move(*(taking_moves.empty? ? moves.sample : taking_moves.sample))
-  end
-
-  private
-
-  def move_takes?(move)
-    start_pos, end_pos = move
-    board.piece_at?(end_pos)
-  end
-end
 
 class GameStateNode
   attr_reader  :board, :turns_left, :player_color, :children,
@@ -89,7 +69,7 @@ class GameStateNode
     loss = board.point_change_for_color(player_color, parent.board) * multiplier
 
     return loss if turns_left == 0
-    return -100 if board.check_mate?(player_color)
+    return -1000 if board.check_mate?(player_color)
     return 10 if board.draw?(player_color)
 
     best_points_from_child = nil
