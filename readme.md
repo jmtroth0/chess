@@ -16,8 +16,14 @@ Command line version of the game written in Ruby
 
   > [Piece Inheritance][piece-inheritance]
 
-
-
+## To Play
+  > Clone the repository
+  > Navigate to the folder
+  > Bundle install to make sure you have the gems necessary
+  > Run 'ruby lib/game.rb' to start the game.
+  > First choose if you will play as white.
+  > Then determine the skill level of the computer.
+  > Finally, input plays in the format 'a1 b2'.
 
 [computer-player]: ./lib/players/computer_player.rb
 [piece-inheritance]: ./lib/pieces
