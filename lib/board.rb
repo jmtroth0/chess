@@ -107,7 +107,16 @@ class Board
   def render
     puts "\n"
     rows.reverse.each_with_index do |row, i|
-      rendered_row = row.map { |tile| tile.nil? ? "[ ]" : tile }.join("")
+      # rendered_row = row.map { |tile| tile.nil? ? "  " : tile }.join("")
+      rendered_row = "";
+      row.each_with_index do |tile, j|
+        tile.nil? ? rendered_tile = "   " : rendered_tile = tile.to_s
+        if (i + j).even?
+          rendered_row += Rainbow(rendered_tile).background('F4A460')
+        else
+          rendered_row += rendered_tile
+        end
+      end
       puts "#{BOARD_SIZE - i}".colorize(:blue) + "  #{rendered_row}"
     end
     puts "\n    #{("A".."H").to_a.join("  ")}".colorize(:blue)

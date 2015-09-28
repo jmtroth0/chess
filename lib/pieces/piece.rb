@@ -28,7 +28,7 @@ class Piece
   end
 
   def to_s
-    "[#{self.class::REPRESENTATION[color]}]"
+    " #{self.class::REPRESENTATION[color]} "
   end
 
   def inspect

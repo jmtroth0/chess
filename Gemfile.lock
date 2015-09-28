@@ -3,6 +3,7 @@ GEM
   specs:
     byebug (6.0.2)
     colorize (0.7.7)
+    rainbow (2.0.0)
 
 PLATFORMS
   ruby
@@ -10,6 +11,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   colorize
+  rainbow
 
 BUNDLED WITH
    1.10.6

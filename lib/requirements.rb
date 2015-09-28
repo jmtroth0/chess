@@ -1,4 +1,5 @@
 require 'colorize'
+require 'rainbow'
 
 require_relative 'pieces/piece.rb'
 require_relative 'pieces/sliding_piece.rb'
