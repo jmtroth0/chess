@@ -62,9 +62,7 @@ class Board
   end
 
   def check_mate?(color)
-    in_check?(color) && pieces.all? do |piece|
-      piece.color == :black || piece.valid_moves.empty?
-    end
+    in_check?(color) && possible_moves(color).empty?
   end
 
   def in_check?(color)
